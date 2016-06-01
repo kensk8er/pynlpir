@@ -235,9 +235,12 @@ POS_MAP = {
             'gwyn': ('网站yn', 'website yn'),
             'gwz': ('网站z', 'website z'),
             'gwzj': ('网站zj', 'website zj'),
+            'gwot': ('网站ot', 'website ot'),
         }),
     }),
 }
+
+INVALID_POS = ['n_new', 'mg', ]
 
 
 def _get_pos_name(pos_code, names='parent', english=True, pos_map=POS_MAP):
@@ -255,8 +258,9 @@ def _get_pos_name(pos_code, names='parent', english=True, pos_map=POS_MAP):
             break
         except KeyError:
             if i == len(pos_code):
-                logger.warning("part of speech not recognized: '%s'"
-                               % pos_code)
+                if pos_code not in INVALID_POS:
+                    logger.warning("part of speech not recognized: '%s'"
+                                   % pos_code)
                 return None  # Issue #20
     pos = (pos_entry[1 if english else 0], )
     if names == 'parent':
