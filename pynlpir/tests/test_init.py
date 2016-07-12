@@ -145,17 +145,17 @@ class TestNLPIRInit(unittest.TestCase):
     """Unit tests for pynlpir initialization."""
 
     def test_license_expire(self):
-        """Tests that a LicenseError is raised if the license is invalid."""
+        """Tests that a RuntimeError is raised if the license is invalid."""
         temp_dir = tempfile.mkdtemp()
         temp_data_dir = os.path.join(temp_dir, 'Data')
         shutil.copytree(DATA_DIR, temp_data_dir)
         shutil.copy(LICENSE_FILE, temp_data_dir)
 
-        self.assertRaises(pynlpir.LicenseError, pynlpir.open, temp_dir)
+        self.assertRaises(RuntimeError, pynlpir.open, temp_dir)
 
         temp_license_file = os.path.join(temp_data_dir, LICENSE_NAME)
         os.remove(temp_license_file)
 
-        self.assertRaises(pynlpir.LicenseError, pynlpir.open, temp_dir)
+        self.assertRaises(RuntimeError, pynlpir.open, temp_dir)
 
         shutil.rmtree(temp_dir)

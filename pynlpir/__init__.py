@@ -25,7 +25,7 @@ import sys
 
 from . import nlpir, pos_map
 
-__version__ = '0.4.10'
+__version__ = '0.4.11'
 
 logger = logging.getLogger('pynlpir')
 
@@ -104,8 +104,15 @@ def open(data_dir=nlpir.PACKAGE_DIR, encoding=ENCODING,
         license_code = _encode(license_code)
 
     if not nlpir.Init(data_dir, encoding_constant, license_code):
-        _attempt_to_raise_license_error(data_dir)
-        raise RuntimeError("NLPIR function 'NLPIR_Init' failed.")
+        logger.info('Update NLPIR license.')
+        from pynlpir.cli import update_license_file
+        update_license_file(data_dir)
+
+        if not nlpir.Init(data_dir, encoding_constant, license_code):
+            _attempt_to_raise_license_error(data_dir)
+            raise RuntimeError("NLPIR function 'NLPIR_Init' failed.")
+        else:
+            logger.debug("NLPIR API initialized.")
     else:
         logger.debug("NLPIR API initialized.")
 
