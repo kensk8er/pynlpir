@@ -1,3 +1,4 @@
 *.err
 *.log
 Data/NLPIR.user
+.DS_Store

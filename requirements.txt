@@ -11,3 +11,4 @@ py==1.4.20
 pyflakes==0.8.1
 tox==1.7.0
 virtualenv==1.11.4
+rarfile==2.8

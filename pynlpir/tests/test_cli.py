@@ -44,7 +44,7 @@ class TestCLI(unittest.TestCase):
             self.assertEqual('License updated.\n', result.output)
 
     def test_license_update(self):
-        "Test that a regular license update works correctly."""
+        """Test that a regular license update works correctly."""
         with self.runner.isolated_filesystem():
             shutil.copyfile(LICENSE_FILE, os.path.basename(LICENSE_FILE))
 
@@ -58,7 +58,7 @@ class TestCLI(unittest.TestCase):
                              result.output)
 
     def test_license_write_fail(self):
-        """Test tha writing a license file fails appropriately."""
+        """Test the writing a license file fails appropriately."""
         with self.runner.isolated_filesystem():
             cwd = os.getcwd()
             os.chmod(cwd, stat.S_IREAD)
