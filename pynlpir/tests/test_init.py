@@ -159,3 +159,21 @@ class TestNLPIRInit(unittest.TestCase):
         self.assertRaises(RuntimeError, pynlpir.open, temp_dir)
 
         shutil.rmtree(temp_dir)
+        pynlpir.close()
+
+    def test_license_auto_update(self):
+        """Tests that the auto-update of the license works."""
+        try:
+            # switch old one to the new one
+            os.rename(os.path.join(DATA_DIR, LICENSE_NAME),
+                      os.path.join(DATA_DIR, "{}.copy".format(LICENSE_NAME)))
+            os.rename(os.path.join(DATA_DIR, "{}.old".format(LICENSE_NAME)),
+                      os.path.join(DATA_DIR, LICENSE_NAME))
+            pynlpir.open()
+            pynlpir.close()
+        finally:
+            # switch back the license
+            os.rename(os.path.join(DATA_DIR, LICENSE_NAME),
+                      os.path.join(DATA_DIR, "{}.old".format(LICENSE_NAME)))
+            os.rename(os.path.join(DATA_DIR, "{}.copy".format(LICENSE_NAME)),
+                      os.path.join(DATA_DIR, LICENSE_NAME))
