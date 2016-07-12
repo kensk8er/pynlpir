@@ -128,7 +128,13 @@ def update_license_file(data_dir):
     if extension == '.zip':
         extract_zip(gh_license_filename)
     elif extension == '.rar':
-        extract_rar(gh_license_filename)
+        try:
+            extract_rar(gh_license_filename)
+        except rarfile.RarUnknownError as exception:
+            rarfile.RarUnknownError("{0}\n{1}".format(
+                exception,
+                'Make sure you have `unrar` installed. On Mac unrar can be '
+                'installed by `brew install unrar`.'))
 
     with open(gh_license_filename, 'rb') as f:
         github_license = f.read()
